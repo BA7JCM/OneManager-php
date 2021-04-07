@@ -1151,7 +1151,7 @@ function EnvOpt($needUpdate = 0)
                 }
                 foreach ($disktags as $disktag) {
                     $d = getConfig($disktag);
-                    if ($d === '') {
+                    if ($d == '') {
                         $d = '';
                     } elseif (gettype($d)=='array') {
                         $tmp[$disktag] = $d;
@@ -1182,7 +1182,7 @@ function EnvOpt($needUpdate = 0)
                     if (!isset($tmp[$disktag])) $tmp[$disktag] = '';
                 }
                 $tmp['disktag'] = $tmptag;
-                $response = setConfigResponse( setConfig($tmp, $_SERVER['disk_oprating']) );
+                $response = setConfigResponse( setConfig($tmp) );
                 if (api_error($response)) {
                     return output("{\"Error\": \"" . api_error_msg($response) . "\"}", 500);
                 } else {
