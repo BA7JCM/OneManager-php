@@ -1169,7 +1169,7 @@ function EnvOpt($needUpdate = 0)
                 $tmp = json_decode($c, true);
                 if (!!!$tmp) return output("{\"Error\": \"Config input error. " . $c . "\"}", 403);
                 if (isset($tmp['disktag'])) $tmptag = $tmp['disktag'];
-                error_log1($tmptag . '<br>' . !$tmptag . '<br>' . !!$tmptag);
+                //error_log1($tmptag . '<br>' . !$tmptag . '<br>' . !!$tmptag);
                 foreach ($EnvConfigs as $env => $v) {
                     if (isCommonEnv($env)) {
                         if (isShowedEnv($env)) {
@@ -1180,8 +1180,9 @@ function EnvOpt($needUpdate = 0)
                     }
                 }
                 if ($disktags) foreach ($disktags as $disktag) {
-                    if (!isset($tmp[$disktag])) $tmp[$disktag] = '';
+                    if ($disktag!=''&&!isset($tmp[$disktag])) $tmp[$disktag] = '';
                 }
+                error_log1(json_encode($tmp));
                 if ($tmptag) $tmp['disktag'] = $tmptag;
                 error_log1(json_encode($tmp));
                 $response = setConfigResponse( setConfig($tmp) );
