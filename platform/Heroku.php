@@ -306,6 +306,11 @@ function setHerokuConfig($env, $HerokuappId, $apikey)
 {
     $data = json_encode($env);
     if (substr($data, 0, 1)=='{') return HerokuAPI('PATCH', 'https://api.heroku.com/apps/' . $HerokuappId . '/config-vars', $data, $apikey);
+    else {
+        $tmp['id'] = 'error env';
+	$tmp['message'] = $env . '<br>' . $data;
+	return $tmp;
+    }
 }
 
 function updateHerokuapp($HerokuappId, $apikey, $source)
