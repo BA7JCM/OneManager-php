@@ -1178,10 +1178,10 @@ function EnvOpt($needUpdate = 0)
                         }
                     }
                 }
-                foreach ($disktags as $disktag) {
+                if (!!$disktags) foreach ($disktags as $disktag) {
                     if (!isset($tmp[$disktag])) $tmp[$disktag] = '';
                 }
-                $tmp['disktag'] = $tmptag;
+                if (!!$tmptag) $tmp['disktag'] = $tmptag;
                 $response = setConfigResponse( setConfig($tmp) );
                 if (api_error($response)) {
                     return output("{\"Error\": \"" . api_error_msg($response) . "\"}", 500);
