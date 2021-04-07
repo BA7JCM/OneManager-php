@@ -1167,6 +1167,7 @@ function EnvOpt($needUpdate = 0)
                 $c = '{' . splitfirst($_POST['config_t'], '{')[1];
                 $c = splitlast($c, '}')[0] . '}';
                 $tmp = json_decode($c, true);
+                error_log1(json_encode($tmp));
                 if (!!!$tmp) return output("{\"Error\": \"Config input error. " . $c . "\"}", 403);
                 $tmptag = $tmp['disktag'];
                 foreach ($EnvConfigs as $env => $v) {
@@ -1177,11 +1178,14 @@ function EnvOpt($needUpdate = 0)
                             unset($tmp[$env]);
                         }
                     }
+                    error_log1($env . ' : ' . json_encode($tmp));
                 }
+                error_log1(json_encode($tmp));
                 if (!!$disktags) foreach ($disktags as $disktag) {
                     if (!isset($tmp[$disktag])) $tmp[$disktag] = '';
                 }
                 if (!!$tmptag) $tmp['disktag'] = $tmptag;
+                error_log1(json_encode($tmp));
                 $response = setConfigResponse( setConfig($tmp) );
                 if (api_error($response)) {
                     return output("{\"Error\": \"" . api_error_msg($response) . "\"}", 500);
